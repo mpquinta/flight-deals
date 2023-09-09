@@ -8,10 +8,7 @@ sheet_data = google_sheet_data.prices
 
 for i in range(len(sheet_data["prices"])):
     if sheet_data["prices"][i]["iataCode"] == '':
-        city = FlightSearch(city=sheet_data["prices"][i]["city"])
-        sheet_data["prices"][i]["iataCode"] = city.iata_code
-        google_sheet_data.update_iata_code(sheet_data["prices"][i]["id"], city.iata_code)
-
-
-
-# print(sheet_data)
+        city = FlightSearch()
+        iata_code = city.search_iata_code(sheet_data["prices"][i]["city"])
+        # sheet_data["prices"][i]["iataCode"] = iata_code
+        google_sheet_data.update_iata_code(sheet_data["prices"][i]["id"], iata_code)
