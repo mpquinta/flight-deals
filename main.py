@@ -2,6 +2,7 @@
 
 import data_manager
 from flight_search import FlightSearch
+import notification_manager
 from pprint import pprint
 
 google_sheet_data = data_manager.DataManager()
@@ -20,4 +21,6 @@ for i in range(len(sheet_data["prices"])):
     # print(flight_search_results)
     flight_price = flight_search_results["data"][0]["price"]
     # print(flight_price)
-    print(f"{current_city}: ${flight_price}")    
+    print(f"{current_city}: ${flight_price}")
+
+twilio = notification_manager.NotificationManager()
