@@ -7,6 +7,7 @@ from pprint import pprint
 
 google_sheet_data = data_manager.DataManager()
 sheet_data = google_sheet_data.prices
+twilio = notification_manager.NotificationManager()
 
 city = FlightSearch()
 
@@ -18,9 +19,21 @@ for i in range(len(sheet_data["prices"])):
 
     # pass the cities into city.flight_search
     flight_search_results = city.flight_search(sheet_data["prices"][i]["iataCode"])
-    # print(flight_search_results)
-    flight_price = flight_search_results["data"][0]["price"]
-    # print(flight_price)
-    print(f"{current_city}: ${flight_price}")
+    pprint(flight_search_results)
+    from_city = flight_search_results["data"][0]["route"][0]["cityFrom"]
+    from_iata = flight_search_results["data"][0]["route"][0]["flyFrom"]
+    to_city = flight_search_results["data"][0]["route"][0]["cityTo"]
+    to_iata = flight_search_results["data"][0]["route"][0]["flyTo"]
 
-twilio = notification_manager.NotificationManager()
+    # print the cheapest price tickets
+    flight_price = flight_search_results["data"][0]["price"]
+    # print(f"{current_city}: ${flight_price}")
+
+    # check cheapest flight against price in google sheet
+    desired_price = sheet_data["prices"][i]["lowestPrice"]
+    if flight_price < desired_price:
+        twilio.send_text(flight_price, )
+    # if price is cheaper than google sheet
+        #send a text
+
+
