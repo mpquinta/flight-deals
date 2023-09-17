@@ -1,11 +1,8 @@
 import os
 from twilio.rest import Client
 
-# account_sid = os.environ['TWILIO_ACCOUNT_SID']
-# auth_token = os.environ['TWILIO_AUTH_TOKEN']
-account_sid = "ACa2638faacf0f43ca9b0bddc720ad534e"
-auth_token = "9d8dacb1d45befce6e7ce4c3183f3c2c"
-
+account_sid = os.environ['TWILIO_ACCOUNT_SID']
+auth_token = os.environ['TWILIO_AUTH_TOKEN']
 
 class NotificationManager:
     def __init__(self):
