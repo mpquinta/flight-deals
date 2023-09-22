@@ -22,20 +22,21 @@ class FlightSearch():
 
         return city_info["locations"][0]["code"]
 
-    def flight_search(self, iata_code):
+    def flight_search(self, iata_code, stop_overs):
         search_endpoint = "https://api.tequila.kiwi.com/v2/search"
 
         params = {
-            "fly_from": "SNA",
+            "fly_from": "SFO",
             "fly_to": iata_code,
             "date_from": (datetime.now() + timedelta(days=1)).strftime("%d/%m/%Y"),
             "date_to": (datetime.now() + timedelta(days=181)).strftime("%d/%m/%Y"),
             "nights_in_dst_from": 7,
-            "nights_in_dst_to": 28,
+            "nights_in_dst_to": 30,
             "flight_type": "round",
             "one_for_city": 1,
-            "max_stopovers": 0,
-            "curr": "USD"
+            "max_stopovers": stop_overs,
+            "curr": "USD",
+
         }
 
         response = requests.get(url=search_endpoint, headers=self.headers, params=params)
