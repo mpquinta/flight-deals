@@ -42,8 +42,9 @@ for i in range(len(sheet_data["prices"])):
         
         # compare desired price against cheapest price
         if flight_price < desired_price:
-            twilio.send_text(
-                message=f"Low price alert! Only ${flight_price} to fly from {from_city}-{from_iata} to {to_city}-{to_iata} from {start_date} to {end_date}.")
+            message=f"Low price alert! Only ${flight_price} to fly from {from_city}-{from_iata} to {to_city}-{to_iata} from {start_date} to {end_date}."
+            twilio.send_text(message=message)
+            twilio.send_emails(message=message)
     
     except IndexError or TypeError:
         flight_search_results = city.flight_search(sheet_data["prices"][i]["iataCode"], 2)
@@ -73,7 +74,9 @@ for i in range(len(sheet_data["prices"])):
         flight_price = flight_search_results["data"][0]["price"]
 
         if flight_price < desired_price:
-            twilio.send_text(message=f"Low price alert! Only ${flight_price} to fly from {origin_city}-{origin_airport} to {destination_city}-{destination_airport} from {out_date} to {return_date}.\n Flight has 1 stop over, via {stop_over_city}.")
+            message = f"Low price alert! Only ${flight_price} to fly from {origin_city}-{origin_airport} to {destination_city}-{destination_airport} from {out_date} to {return_date}.\n Flight has 1 stop over, via {stop_over_city}."
+            twilio.send_text(message=message)
+            twilio.send_emails(message=message)
         
 
 
